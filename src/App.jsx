@@ -10,12 +10,16 @@ const App = () => {
 
   useEffect(() => {
     if (isRunning) {
+      const startTime = Date.now() - timeInSeconds * 1000;
+
       timerRef.current = setInterval(() => {
-        setTimeInSeconds((prevTime) => prevTime + 1);
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        setTimeInSeconds(elapsed);
       }, 1000);
     } else {
       clearInterval(timerRef.current);
     }
+
     return () => clearInterval(timerRef.current);
   }, [isRunning]);
 
